@@ -217,15 +217,6 @@ if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     export LS_COLORS="$LS_COLORS:ow=30;44:" # fix ls color for folders with 777 permissions
 
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-    alias diff='diff --color=auto'
-    alias ip='ip --color=auto'
 
     export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
     export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
@@ -257,13 +248,53 @@ if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
 fi
 
-# Set up fuzzy key findings  and fuzzy compilations
+
+export PATH="$HOME/.cargo/bin:$PATH"
+export EDITOR="nvim"
+
 eval "$(fzf --zsh)"
-
-alias bat='batcat' ## Its for calling bat function easier instead of its long name of batcat
-
 eval "$(zoxide init zsh)"
 
-alias zen='flatpak run app.zen_browser.zen' ## Its for calling zen browser
-export PATH="$HOME/.cargo/bin:$PATH"
-alias nrs='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean -y'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias diff='diff --color=auto'
+alias ip='ip --color=auto'
+alias wavemon='sudo wavemon'
+alias bat='batcat' 
+
+alias zen='flatpak run app.zen_browser.zen' 
+alias nrs='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt clean -y'
+alias nrsf='sudo /usr/local/bin/fza -U '
+alias vimz='nvim $HOME/.zshrc' 
+alias vimq='nvim $HOME/.config/qtile/config.py' 
+alias vimd='nvim $HOME/.config/dwm/dwm/config.h' 
+alias cdd='cd $HOME/.config/dwm/dwm/' 
+alias cddb='cd $HOME/.config/dwm/dwmblocks/' 
+alias vimdb='nvim $HOME/.config/dwm/dwmblocks/blocks.h ' 
+alias fza='sudo /usr/local/bin/fza'
+alias ttyclock='tty-clock -tbscxSC 6'
+alias lg='lazygit'
+alias fd='fdfind'
+alias "[][]"='clear ; fastfetch --config examples/25 ; sleep 5 ; poweroff'
+alias zinfo='zoxide query --interactive'
+alias copy='xclip -selection clipboard' 
+alias gp='git push origin HEAD' 
+alias dwmdd='dwmblocks & disown ; picom & disown ; xwallpaper --zoom $HOME/Pictures/themes/walls/0-ship-at-sea.jpg'
+
+alias "dec2hex"="printf '%x \n'"  
+alias "hex2dec"="printf '%x \n'"  
+
+
+fullend-github----(){
+    curl -s https://github.com | grep -o 'git@[^"]*' | xargs -L1 git clone
+}
+
+dec2bin(){
+    command echo "obase=2 ; "$@"" | bc
+}
+
+man() {
+    command man "$@" | batcat -l man
+}
